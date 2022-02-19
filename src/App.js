@@ -1,3 +1,4 @@
+import { hot } from 'react-hot-loader/root';
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import DialogService from "./dialog/DialogService";
@@ -5,7 +6,7 @@ import Personel from './Personel'
 
 
 
-export default class App extends Component {
+class App extends Component {
   constructor() {
     super();
    
@@ -15,19 +16,19 @@ export default class App extends Component {
     var frm = DialogService.create({});
 
 		const cev = await frm.show({
-			title: "Başlama/Erteleme Bildirimi Gereken İşler",
+			title: "Başlama/Erteleme Bildirimi Gereken İşleryy",
 			isContainer:true,
 			formBody: <Personel />,
 			showFooter: true,
 			width: 650,
 			okText: (
 				<span>
-					Tamam
+					Tamamx
 				</span>
 			),
 			cancelText: (
 				<span>
-				Uygulamadan Çık
+				Uygulamadan Çıkxx
 				</span>
 			)
 		});
@@ -38,14 +39,22 @@ export default class App extends Component {
   render() {
     return (
       <div className="container-fluid">
+
+        <span>xxx</span>
             <button 
-                className="button is-danger"
+                className="button is-danger" 
+                style={{marginTop:10}}
                 value={2}
                 onClick={e=>{this.formAc()}}
               >
-                Delete
+                Sil
             </button>
+
+            <span>xxx</span>
       </div>
     );
   }
 }
+
+
+export default hot(App);

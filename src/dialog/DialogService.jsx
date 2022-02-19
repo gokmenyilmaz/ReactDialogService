@@ -18,6 +18,7 @@ class DialogService extends Component {
     if(modal!==null) modalId="gk-modal2";
 
 
+    let a=2;
     const containerElement = document.createElement("div");
     containerElement.setAttribute("id",modalId);
     document.body.appendChild(containerElement);
@@ -94,6 +95,8 @@ class DialogService extends Component {
 
     if(formValidateText.length>0)
     {
+
+      let x="ttt";
         var mtext={};
         var liste=formValidateText.split(";");
         var pList=[];
