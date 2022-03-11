@@ -123,8 +123,6 @@ class DialogService extends Component {
 
 			console.log("touchstart");
 
-			e.preventDefault();
-
 			pos3 = e.touches[0].clientX;
 			pos4 = e.touches[0].clientY;
 
