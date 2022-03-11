@@ -116,8 +116,10 @@ class DialogService extends Component {
 			pos2 = 0,
 			pos3 = 0,
 			pos4 = 0;
-		document.getElementById("gkModalId_header").onmousedown = elementMouseDown;
-		document.getElementById("gkModalId_header").ontouchstart = startTouch;
+
+		let el=document.getElementById("gkModalId_header");
+		el.onmousedown = elementMouseDown;
+		el.addEventListener("touchstart",startTouch);
 
 		function startTouch(e) {
 
@@ -125,6 +127,10 @@ class DialogService extends Component {
 
 			pos3 = e.touches[0].clientX;
 			pos4 = e.touches[0].clientY;
+
+			el.addEventListener("touchstart",startTouch);
+			el.addEventListener("touchmove",moveTouch);
+
 
 			document.ontouchend = endTouch;
 			document.ontouchmove = moveTouch;
@@ -201,7 +207,7 @@ class DialogService extends Component {
 						<header id="gkModalId_header" className="gk-modal-header">
 							<div className="gk-modal-title"> {this.state.modalParams.title}</div>
 							<button onClick={this.handleCancel} className="gk-close">
-								<span aria-hidden="true">×</span>
+								<span aria-hidden="true">X</span>
 							</button>
 						</header>
 
