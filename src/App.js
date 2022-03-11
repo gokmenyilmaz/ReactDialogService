@@ -13,27 +13,43 @@ class App extends Component {
   }
 
   async formAc() {
-    var frm = DialogService.create({});
 
-		const cev = await frm.show({
-			title: "Başlama/Erteleme Bildirimi Gereken İşleryy",
-			isContainer:true,
-			formBody: <Personel />,
-			showFooter: true,
-			width: 650,
-			okText: (
-				<span>
-					Tamamx
-				</span>
+    let frm = DialogService.create();
+    this.ref1 = React.createRef();
+
+
+    let cev = await frm.show({
+			refForm: this.ref1,
+			title: "_title",
+			formBody: (
+				<div>
+					<Personel ref={this.ref1}/>
+				
+				</div>
 			),
-			cancelText: (
+			okText: "Tamam",
+      cancelText: (
 				<span>
 				Uygulamadan Çıkxx
 				</span>
-			)
+			),
+			showFooter: true,
+			width: 400,
+			height: 300
 		});
 
-    alert(cev);
+		if (cev == false) {
+      alert(cev);
+			return;
+		}
+    
+    alert("Tamam");
+
+
+
+	
+
+   
   }
 
   render() {
