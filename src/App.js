@@ -1,9 +1,15 @@
-import { hot } from 'react-hot-loader/root';
-import React, { Component } from 'react';
-import { render } from 'react-dom';
-import DialogService from "./dialog/DialogService";
-import Personel from './Personel'
+//import { hot } from 'react-hot-loader/root';
 
+
+import ReactDOM from "react-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { Component } from 'react';
+
+import Personel from './Pages/PersonelModule/Personel';
+import HvListe from './Pages/HareketVarisModule/HvListe'
+import HvForm from './Pages/HareketVarisModule/HvForm'
+import Layout from './Pages/LayoutModule/Layout'
+import IsEmirleri from './Pages/IsEmirModule/IsEmirleri'
 
 
 class App extends Component {
@@ -12,65 +18,22 @@ class App extends Component {
    
   }
 
-  async formAc() {
-
-    let frm = DialogService.create();
-    this.ref1 = React.createRef();
-
-
-    let cev = await frm.show({
-			refForm: this.ref1,
-			title: "_title",
-			formBody: (
-				<div>
-					<Personel ref={this.ref1}/>
-				
-				</div>
-			),
-			okText: "Tamam",
-      cancelText: (
-				<span>
-				Uygulamadan Çıkxx
-				</span>
-			),
-			showFooter: true,
-			width: 400,
-			height: 300
-		});
-
-		if (cev == false) {
-      alert(cev);
-			return;
-		}
-    
-    alert("Tamam");
-
-
-
-	
-
-   
-  }
 
   render() {
     return (
-      <div className="container-fluid">
-
-        <span>xxx</span>
-            <button 
-                className="button is-danger" 
-                style={{marginTop:10}}
-                value={2}
-                onClick={e=>{this.formAc()}}
-              >
-                Sil
-            </button>
-
-            <span>xxx</span>
-      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+          <Route path="personel" element={<Personel/>}/>
+          <Route path="hv" element={<HvForm/>}/>
+          <Route path="isemirleri" element={<IsEmirleri/>}/>
+          </Route>
+  
+        </Routes>
+      </BrowserRouter>
     );
   }
 }
 
 
-export default hot(App);
+export default App;
