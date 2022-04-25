@@ -97,8 +97,8 @@ class DialogService extends Component {
 	}
 
 	/**
-	 * @param {{title: string, isContainer:boolean,formBody: object, width?:number,height?:number,
-	 * showFooter:boolean,okText?:object, cancelText?:object}} params description,
+	 * @param {{title: object, formBody: object, width?:number,height?:number,
+	 * okText?:object, cancelText?:object}} params description,
 	 * @return {Promise}
 	 */
 	show = params => {
