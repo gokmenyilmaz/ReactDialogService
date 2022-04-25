@@ -235,7 +235,7 @@ class DialogService extends Component {
 							{this.state.modalParams.formBody}
 						</div>
 
-						<div style={{overflow: "auto", padding:8, background:"LightYellow"}}>
+						<div style={{overflow: "auto",  background:"LightYellow"}}>
 							{this.state.modalParams?.formBottomText}
 						</div>
 
