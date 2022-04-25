@@ -73,8 +73,13 @@ class DialogService extends Component {
 
 	handleConfirm() {
 		let params = this.state.modalParams;
-		let modalBodyForm=params.formBody.ref.current;
+		let modalBodyForm=params.formBody.ref?.current;
 
+		if (modalBodyForm== undefined) {
+			this.close();
+			this.resolve(true);
+			return;
+		}
 
 
 		if (modalBodyForm.closing == undefined) {
@@ -98,7 +103,7 @@ class DialogService extends Component {
 
 	/**
 	 * @param {{title: object, formBody: object, width?:number,height?:number,
-	 * okText?:object, cancelText?:object}} params description,
+	 * okText?:object, cancelText?:object,formBottomText?:object}} params description,
 	 * @return {Promise}
 	 */
 	show = params => {
@@ -228,6 +233,10 @@ class DialogService extends Component {
 							}}
 							className="gk-modal-body">
 							{this.state.modalParams.formBody}
+						</div>
+
+						<div style={{overflow: "auto", padding:8, background:"LightYellow"}}>
+							{this.state.modalParams?.formBottomText}
 						</div>
 
 						{footerAktifMi && (
