@@ -9,15 +9,21 @@ class DialogService extends Component {
 
 	resolve = null;
 
-	static modalId = "";
+	modalHeaderId = "";
+	modalFormId=""
+	
 	static create(props = {}) {
-		DialogService.modalId = Math.random().toString(32).split(".")[1];
+		let _modalId = Math.random().toString(32).split(".")[1];
 
 		const containerElement = document.createElement("div");
-		containerElement.setAttribute("id", this.modalId);
+		containerElement.setAttribute("id",_modalId);
 		document.body.appendChild(containerElement);
 
-		var comp = render(<DialogService />, containerElement);
+		let element=React.createElement(this, {modalId:_modalId});
+		
+
+		var comp = render(element, containerElement);
+
 
 		// @ts-ignore
 		return comp;
@@ -25,6 +31,9 @@ class DialogService extends Component {
 
 	constructor(props) {
 		super(props);
+
+		this.modalFormId="modal_form_" + this.props.modalId;
+		this.modalHeaderId="modal_header_" + this.props.modalId;
 
 		this.state = {
 			isOpen: false,
@@ -48,7 +57,7 @@ class DialogService extends Component {
 	close() {
 		this.setState({ isOpen: false });
 
-		const containerElement = document.getElementById(DialogService.modalId);
+		const containerElement = document.getElementById(this.props.modalId);
 
 		unmountComponentAtNode(containerElement);
 		document.body.removeChild(containerElement);
@@ -99,8 +108,10 @@ class DialogService extends Component {
 	 */
 	show = params => {
 		this.setState({ isOpen: true, modalParams: params });
+		
+		let el_modal_div=document.getElementById(this.modalFormId);
 
-		this.dragElement(document.getElementById("gkModalId"));
+		this.dragElement(el_modal_div);
 
 		return new Promise(res => {
 			this.resolve = res;
@@ -109,7 +120,7 @@ class DialogService extends Component {
 
 	
 
-	dragElement = elmnt => {
+	dragElement = el_modal => {
 
 		console.log("drag");
 		var pos1 = 0,
@@ -117,9 +128,10 @@ class DialogService extends Component {
 			pos3 = 0,
 			pos4 = 0;
 
-		let el=document.getElementById("gkModalId_header");
-		el.onmousedown = elementMouseDown;
-		el.addEventListener("touchstart",startTouch);
+
+		let el_header_div=document.getElementById(this.modalHeaderId);
+		el_header_div.onmousedown = elementMouseDown;
+		el_header_div.addEventListener("touchstart",startTouch);
 
 		function startTouch(e) {
 
@@ -128,8 +140,8 @@ class DialogService extends Component {
 			pos3 = e.touches[0].clientX;
 			pos4 = e.touches[0].clientY;
 
-			el.addEventListener("touchstart",startTouch);
-			el.addEventListener("touchmove",moveTouch);
+			el_header_div.addEventListener("touchstart",startTouch);
+			el_header_div.addEventListener("touchmove",moveTouch);
 
 
 			document.ontouchend = endTouch;
@@ -146,8 +158,8 @@ class DialogService extends Component {
 			pos3 = e.touches[0].clientX;
 			pos4 = e.touches[0].clientY;
 
-			elmnt.style.top = elmnt.offsetTop - pos2 + "px";
-			elmnt.style.left = elmnt.offsetLeft - pos1 + "px";
+			el_modal.style.top = el_modal.offsetTop - pos2 + "px";
+			el_modal.style.left = el_modal.offsetLeft - pos1 + "px";
 			
 		}
 
@@ -181,8 +193,10 @@ class DialogService extends Component {
 			pos3 = e.clientX;
 			pos4 = e.clientY;
 
-			elmnt.style.top = elmnt.offsetTop - pos2 + "px";
-			elmnt.style.left = elmnt.offsetLeft - pos1 + "px";
+			console.log("pos",pos1);
+
+			el_modal.style.top = el_modal.offsetTop - pos2 + "px";
+			el_modal.style.left = el_modal.offsetLeft - pos1 + "px";
 		}
 
 		function elementMouseMoveEnd() {
@@ -196,15 +210,17 @@ class DialogService extends Component {
 		let formWidth=this.state.modalParams.width>window.innerWidth?window.innerWidth:this.state.modalParams.width;
 
 		var footerAktifMi = this.state.modalParams.cancelText || this.state.modalParams.okText;
+	
 
 		return (
 		
 				<div className={!isOpen ? "gk-modal" : "gk-modal gk-is-active"}>
 					<div
-						id="gkModalId"
+						id={this.modalFormId}
 						style={{ width: formWidth }}
 						className="gk-modal-content gk-card">
-						<header id="gkModalId_header" className="gk-modal-header">
+						
+						<header id={this.modalHeaderId} className="gk-modal-header">
 							<div className="gk-modal-title"> {this.state.modalParams.title}</div>
 							<button onClick={this.handleCancel} className="gk-close">
 								<span aria-hidden="true">X</span>
