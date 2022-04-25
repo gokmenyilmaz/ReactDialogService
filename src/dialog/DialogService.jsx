@@ -73,17 +73,17 @@ class DialogService extends Component {
 
 	handleConfirm() {
 		let params = this.state.modalParams;
-		let modalBodyForm1=params.formBody.ref.current;
+		let modalBodyForm=params.formBody.ref.current;
 
 
 
-		if (modalBodyForm1.closing == undefined) {
+		if (modalBodyForm.closing == undefined) {
 			this.close();
 			this.resolve(true);
 			return;
 		}
 
-		if(modalBodyForm1.closing()===true)
+		if(modalBodyForm.closing()===true)
 		{
 			this.close();
 			this.resolve(true);
