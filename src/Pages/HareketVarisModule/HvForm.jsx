@@ -6,17 +6,13 @@ export default class HvForm extends Component {
   async formAc() {
 
     let frm = DialogService.create();
-    this.ref1 = React.createRef();
-
 
     let cev = await frm.show({
-			refForm: this.ref1,
 			title: "_title",
 			formBody: (
-				<div>
-					<Personel ref={this.ref1}/>
-				
-				</div>
+
+					<Personel ref={React.createRef()}/>
+
 			),
 			okText: "Tamam",
       cancelText: (
